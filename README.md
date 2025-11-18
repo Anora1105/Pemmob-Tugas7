@@ -1,4 +1,4 @@
-<img width="386" height="852" alt="Screenshot 2025-11-18 203859" src="https://github.com/user-attachments/assets/3b09f640-0c80-4d8b-97ec-ca9bc26ab701" /># Nama : Ariza Nola Rufiana
+# Nama : Ariza Nola Rufiana
 # NIM ; H1D023005
 ## Pemmob-Tugas7 Pertemuan 9
 
