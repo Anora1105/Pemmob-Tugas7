@@ -35,5 +35,4 @@ File-file widget kecil (mis. tombol khusus, input field, card) yang dipanggil di
 
 Setiap skrip di atas didesain untuk memisahkan tanggung jawab: service untuk akses data, controller untuk logika/koordinasi, dan view untuk presentasi. Pemisahan ini membuat kode lebih mudah diuji, dirawat, dan diperluas.
 
-
-<img src="https://raw.githubusercontent.com/Anora1105/Pemmob-Tugas7/main/assets/recordtugas7.gif" width="200">
+## <img src="https://raw.githubusercontent.com/Anora1105/Pemmob-Tugas7/h1d023005_tugas7/assets/recordtugas7.gif" width="200">
