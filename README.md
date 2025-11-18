@@ -93,4 +93,4 @@ flutter build apk --release
 2. Commit dengan pesan jelas (`feat:`, `fix:`, `chore:`, `docs:`).
 3. Push branch ke remote → buat Pull Request.
 
-<img src="https://raw.githubusercontent.com/Anora1105/Pemmob-Tugas7/assets/recodtugas7.gif" width="200">
+<img src="https://raw.githubusercontent.com/Anora1105/Pemmob-Tugas7/assets/recordtugas7.gif" width="200">
