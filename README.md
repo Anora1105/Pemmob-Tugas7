@@ -1,4 +1,4 @@
-# Nama : Ariza Nola Rufiana
+<img width="386" height="852" alt="Screenshot 2025-11-18 203859" src="https://github.com/user-attachments/assets/3b09f640-0c80-4d8b-97ec-ca9bc26ab701" /># Nama : Ariza Nola Rufiana
 # NIM ; H1D023005
 ## Pemmob-Tugas7 Pertemuan 9
 
@@ -35,4 +35,9 @@ File-file widget kecil (mis. tombol khusus, input field, card) yang dipanggil di
 
 Setiap skrip di atas didesain untuk memisahkan tanggung jawab: service untuk akses data, controller untuk logika/koordinasi, dan view untuk presentasi. Pemisahan ini membuat kode lebih mudah diuji, dirawat, dan diperluas.
 
-## <img src="https://raw.githubusercontent.com/Anora1105/Pemmob-Tugas7/h1d023005_tugas7/assets/recordtugas7.gif" width="200">
+#<img width="350" height="600" alt="Screenshot 2025-11-18 203802" src="https://github.com/user-attachments/assets/1cadeaf2-34eb-4e09-9743-60225ead221f" />
+<img width="350" height="600" alt="Screenshot 2025-11-18 203827" src="https://github.com/user-attachments/assets/948569ae-406e-405e-8798-bc56e6887d9b" />
+<img width="350" height="600" alt="Screenshot 2025-11-18 203859" src="https://github.com/user-attachments/assets/735d7758-389e-4581-9197-38f605e3bf22" />
+<img width="350" height="600" alt="Screenshot 2025-11-18 203934" src="https://github.com/user-attachments/assets/b41ca7b8-4a2d-48a9-b405-239d5bc0d6cc" />
+<img width="350" height="600" alt="Screenshot 2025-11-18 203948" src="https://github.com/user-attachments/assets/7f34b5ce-9ffd-4e3a-bbdb-d50ffbda0d54" />
+<img width="350" height="600" alt="Screenshot 2025-11-18 204222" src="https://github.com/user-attachments/assets/7d1a7e5e-da16-4e36-a716-59ff513cd702" />
