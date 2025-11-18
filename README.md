@@ -4,93 +4,36 @@
 
 ### Ringkasan singkat
 
-Aplikasi Flutter untuk tugas/praktikum mata kuliah Pemrograman Mobile (Tugas 7). README ini menjelaskan struktur kode, cara menjalankan, perubahan penting yang dilakukan (termasuk perbaikan penggunaan `BuildContext` setelah `await`), konfigurasi Git terkait line endings, serta panduan kontribusi dan debugging.
+Berikut **penjelasan skrip saja** — tiap paragraf menjelaskan fungsi dan peran setiap berkas kode (tanpa instruksi menjalankan atau hal lain). Ringkas dan siap dimasukkan ke README.
 
-### Isi / Tujuan project
+`lib/main.dart`
+File entry-point aplikasi. Berfungsi menyiapkan environment (mis. `WidgetsFlutterBinding.ensureInitialized()`), inisialisasi service/global dependency, lalu memanggil `runApp(MyApp())`. Di sini juga biasanya didefinisikan konfigurasi global seperti tema, localizations, dan integrasi routing utama (`MaterialApp` / `GetMaterialApp`).
 
-* Implementasi UI & routing dasar (login, dashboard, halaman profil, dll.).
-* Contoh manajemen state sederhana dan pemanggilan fungsi `async`.
-* Struktur proyek mengikuti konvensi standar Flutter (multi-platform: android, ios, linux, macos, windows).
+`lib/routes.dart`
+Berisi konstanta nama rute (string) yang digunakan di seluruh aplikasi. Menyimpan semua path rute dalam satu tempat agar navigasi konsisten dan mudah diganti tanpa menyisir banyak file.
 
-### Berkas utama dan penjelasan singkat
+`lib/app/controllers/login_controller.dart`
+Controller yang mengatur alur login: menerima input dari UI, memanggil `AuthService.login(...)`, mengubah status loading/error, dan memutuskan tindakan setelah respons (mis. navigasi ke dashboard atau menampilkan pesan error). Controller memisahkan logika bisnis dari tampilan agar widget tetap bersih.
 
-* `lib/main.dart` — titik masuk aplikasi. Biasanya memanggil `runApp(MyApp())` dan mendaftarkan route.
-* `lib/app_routes.dart` — daftar rute / nama rute yang digunakan di aplikasi.
-* Halaman UI: `lib/page/login_page.dart`, `lib/ui/dashboard_page.dart`, dsb. — tempat komponen layar ditulis.
-* `pubspec.yaml` — daftar dependency, assets, dan pengaturan package.
+`lib/app/services/auth_service.dart`
+Service yang menampung logika autentikasi. Di file ini ada fungsi `login()` yang melakukan validasi kredensial (saat ini lokal atau mock) dan mengelola penyimpanan token/session (mis. SharedPreferences atau secure storage) jika diperlukan. Service ini adalah titik tunggal jika nanti ingin mengganti implementasi menjadi panggilan API.
 
-### Perbaikan penting yang dilakukan
+`lib/app/models/user.dart`
+Model data untuk representasi pengguna (User). Biasanya berisi field seperti `id`, `name`, `email`, serta metode serialisasi `fromJson()` dan `toJson()` yang memudahkan konversi data dari/ke API.
 
-1. **Use of `BuildContext` after `await`**
+`lib/ui/login_page.dart`
+Tampilan form login: menampilkan TextField untuk username dan password, tombol login, serta penanganan validasi input dasar. Ketika tombol ditekan, page ini memanggil method pada `LoginController`. UI seharusnya tidak berisi logika autentikasi, hanya rendering dan pemanggilan controller.
 
-   * Masalah: menggunakan `context` setelah `await` dapat menyebabkan crash karena widget mungkin sudah di-dispose.
-   * Perbaikan yang diterapkan di kode:
+`lib/ui/dashboard_page.dart`
+Halaman utama setelah login sukses. Menampilkan ringkasan informasi pengguna atau fitur aplikasi yang dapat diakses. Fungsinya secara visual mengindikasikan transisi sukses dari proses autentikasi dan menjadi titik masuk untuk fitur-fitur lanjutan.
 
-     * Menambahkan pengecekan `if (!mounted) return;` setelah pemanggilan `await` di dalam `State` class.
-     * Atau, mengambil dulu objek yang diperlukan dari `context` sebelum `await` (mis. `final navigator = Navigator.of(context);`).
-   * Contoh pola aman (di dalam `State`):
+`pubspec.yaml` (bagian skrip terkait)
+Meskipun bukan file kode Dart, bagian dependency di `pubspec.yaml` menentukan paket yang dipakai oleh skrip-skrip lain (mis. GetX, Dio). Versi dan plugin di file ini memengaruhi perilaku service, controller, dan widget.
 
-     ```dart
-     await someAsyncWork();
-     if (!mounted) return;
-     Navigator.of(context).push(...);
-     ```
-   * Jika perubahan ini ada di beberapa file (login, dashboard), commit message yang digunakan: `chore: fix BuildContext usage after async await`.
+`lib/ui/widgets/*` (komponen reusable)
+File-file widget kecil (mis. tombol khusus, input field, card) yang dipanggil di banyak halaman. Skrip ini memfokuskan pengulangan UI agar konsisten dan meminimalkan duplikasi kode pada halaman besar.
 
-2. **Normalisasi line endings (EOL)**
+Setiap skrip di atas didesain untuk memisahkan tanggung jawab: service untuk akses data, controller untuk logika/koordinasi, dan view untuk presentasi. Pemisahan ini membuat kode lebih mudah diuji, dirawat, dan diperluas.
 
-   * Ditambahkan `.gitattributes` untuk memaksa file sumber menggunakan `LF` di repository dan menghindari peringatan `LF will be replaced by CRLF` saat `git add` pada Windows.
-   * Perintah yang digunakan: `git add --renormalize .` kemudian commit `chore: normalize line endings`.
 
-## Cara menjalankan (development)
-
-1. Pastikan Flutter SDK terinstal dan path sudah di-setup. Minimal rekomendasi: Flutter 3.x atau lebih baru (sesuaikan dengan `pubspec.yaml`).
-2. Install dependency:
-
-```bash
-flutter pub get
-```
-
-3. Jalankan di emulator / perangkat:
-
-```bash
-flutter run
-```
-
-4. Jika ingin menjalankan pada platform spesifik:
-
-```bash
-flutter run -d chrome       # web
-flutter run -d windows      # windows
-flutter run -d macos
-flutter run -d linux
-```
-
-## Build release
-
-Contoh build Android:
-
-```bash
-flutter build apk --release
-```
-
-## Git: konfigurasi yang direkomendasikan
-
-* Tambahkan `.gitignore` (file build, IDE config, keystore) — hindari commit file sensitif.
-* Tambahkan `.gitattributes` sesuai rekomendasi untuk Flutter (memaksa `*.dart`, `*.yaml`, `pubspec.lock` ke `eol=lf`).
-* Jika bekerja di Windows, set `git config --global core.autocrlf true` agar Git otomatis menyesuaikan EOL saat checkout/commit.
-
-## Troubleshooting umum
-
-* **Peringatan LF/CRLF saat `git add`**: jalankan langkah renormalize yang dijelaskan di atas.
-* **`permission denied (publickey)` saat push via SSH**: pastikan SSH key ter-generate dan sudah ditambahkan ke GitHub.
-* **`rejected non-fast-forward` saat push**: lakukan `git pull --rebase origin main` lalu resolve conflict.
-* **Error terkait package**: jalankan `flutter clean` lalu `flutter pub get`.
-
-## Contributing
-
-1. Fork repo → clone ke lokal → buat branch fitur: `git checkout -b feat/nama-fitur`.
-2. Commit dengan pesan jelas (`feat:`, `fix:`, `chore:`, `docs:`).
-3. Push branch ke remote → buat Pull Request.
-
-<img src="https://raw.githubusercontent.com/Anora1105/Pemmob-Tugas7/assets/recordtugas7.gif" width="200">
+<img src="https://raw.githubusercontent.com/Anora1105/Pemmob-Tugas7/main/assets/recordtugas7.gif" width="200">
